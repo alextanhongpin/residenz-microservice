@@ -6,7 +6,6 @@
 - Update room
 - Delete room
 
-
 # CRUD Multiple
 - View rooms
 

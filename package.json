@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "alextanhongpin",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "rx": "^4.1.0",
+    "rx-node": "^1.0.2"
+  }
 }
