@@ -70,3 +70,6 @@ rx.Observable.fromArray([ {name: 'car', age: 1}, {name: 'car', age: 4} ])
 .subscribe((d) => {
   console.log(d)
 })
+
+const paper = (name) => (greet) => greet + ' ' + name
+console.log(paper('asdasd')('totlead ada'))
