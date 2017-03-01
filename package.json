@@ -9,6 +9,10 @@
   "author": "alextanhongpin",
   "license": "ISC",
   "dependencies": {
+    "ajv": "^4.11.3",
+    "convict": "^2.0.0",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.5",
     "rx": "^4.1.0",
     "rx-node": "^1.0.2"
   }
