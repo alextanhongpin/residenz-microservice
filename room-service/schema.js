@@ -9,6 +9,7 @@
 **/
 
 const Joi = require('joi')
+const rx = require('rx')
 
 const allSchema = Joi.object().keys({
   query: Joi.string()
@@ -35,19 +36,19 @@ const deleteSchema = Joi.object().keys({
 
 module.exports = {
   all (data) {
-    return Joi.validate(data, allSchema)
+    return rx.Observable.fromNodeCallback(Joi.validate)(data, allSchema)
   },
   one (data) {
-    return Joi.validate(data, oneSchema)
+    return rx.Observable.fromNodeCallback(Joi.validate)(data, oneSchema)
   },
   create (data) {
-    return Joi.validate(data, createSchema)
+    return rx.Observable.fromNodeCallback(Joi.validate)(data, createSchema)
   },
   update (data) {
-    return Joi.validate(data, updateSchema)
+    return rx.Observable.fromNodeCallback(Joi.validate)(data, updateSchema)
   },
   delete (data) {
-    return Joi.validate(data, deleteSchema)
+    return rx.Observable.fromNodeCallback(Joi.validate)(data, deleteSchema)
   }
 }
 
