@@ -22,6 +22,11 @@ const conf = convict({
     format: 'port',
     default: 3000,
     env: 'PORT'
+  },
+  mongoURI: {
+    doc: 'The mongodb connection',
+    default: 'mongodb://localhost/rx-residenz',
+    env: 'MONGO_URI'
   }
 })
 

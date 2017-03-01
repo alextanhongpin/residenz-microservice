@@ -11,8 +11,13 @@
 const Joi = require('joi')
 const rx = require('rx')
 
+const page = Joi.number().integer().min(1).default(1, 'The current page')
+const perPage = Joi.number().integer().min(12).max(150).default(15, 'The number of items per page')
+
 const allSchema = Joi.object().keys({
-  query: Joi.string()
+  query: Joi.string(),
+  page: page,
+  per_page: perPage
 })
 
 const oneSchema = Joi.object().keys({

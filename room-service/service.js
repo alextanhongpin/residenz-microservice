@@ -8,13 +8,16 @@
  * Copyright (c) 2017 alextanhongpin. All rights reserved.
 **/
 
-module.exports = function init ({ Model }) {
+module.exports = function init ({ model }) {
   const Service = {}
-  Service.all = () => Model.find()
-  Service.one = (_id) => Model.find({ _id })
-  Service.create = (params) => new Model(params).save()
-  Service.delete = (_id) => Model.remove({ _id })
-  Service.update = (_id, params) => Model.findOneAndUpdate({ _id }, { $set: params }, { new: false })
-  Service.Room = () => Model
+  Service.all = ({ query, per_page, page }) => {
+    console.log('service.call')
+    return model.find({}).skip(per_page * page).limit(per_page)
+  }
+  Service.one = ({_id}) => model.findOne({ _id })
+  Service.create = (params) => new model(params).save()
+  Service.delete = (_id) => model.remove({ _id })
+  Service.update = (_id, params) => model.findOneAndUpdate({ _id }, { $set: params }, { new: false })
+  Service.Room = () => model
   return Service
 }

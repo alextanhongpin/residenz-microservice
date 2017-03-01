@@ -17,24 +17,32 @@ module.exports = function init ({ schema, service, helper }) {
   let Endpoint = {}
 
   Endpoint.all = (req, res) => {
-    const subscription = rx.Observable.just(req.query)
-    .map((params) => ({ query: params.query }))
+    // Get the request
+    const requestStream = rx.Observable.just(req.query)
     .flatMap(schema.all)
-    .flatMap((valid) => {
-      if (valid.error) {
-        
-      }
-      return valid.value
-    })
+
+    // Database query
+    const responseStream = requestStream
     .flatMap(service.all)
-    .subscribe(successJSON(res), errorJSON(res), () => subscription.dispose())
+
+    // Join both request and response stream
+    rx.Observable.forkJoin(requestStream, responseStream)
+    .subscribe((data) => {
+      const [request, response] = data
+      successJSON(res)({
+        meta: {
+          page: request.page,
+          per_page: request.per_page
+        },
+        data: response
+      })
+    }, errorJSON(res))
   }
 
   Endpoint.one = (req, res) => {
-    const subscription = rx.Observable.just(req.query)
+    const subscription = rx.Observable.just(req.params)
     .map(params => ({ _id: params.id }))
     .flatMap(schema.one)
-    .flatMap((v) => v.value)
     .flatMap(service.one)
     .subscribe(successJSON(res), errorJSON(res), () => subscription.dispose())
   }
@@ -43,7 +51,6 @@ module.exports = function init ({ schema, service, helper }) {
     const subscription = rx.Observable.just(req.body)
     .map(params => ({ name: params.name }))
     .flatMap(schema.create)
-    .flatMap((v) => v.value)
     .flatMap(service.one)
     .subscribe(successJSON(res), errorJSON(res), () => subscription.dispose())
   }
@@ -52,7 +59,6 @@ module.exports = function init ({ schema, service, helper }) {
     const subscription = rx.Observable.just(req.params)
     .map(params => ({ _id: params.id }))
     .flatMap(schema.delete)
-    .flatMap((v) => v.value)
     .flatMap(service.delete)
     .subscribe(successJSON(res), errorJSON(res), () => subscription.dispose())
   }
@@ -67,7 +73,6 @@ module.exports = function init ({ schema, service, helper }) {
       return { _id, payload }
     })
     .flatMap(schema.update)
-    .flatMap((v) => v.value)
     .flatMap(service.update)
     .subscribe(successJSON(res), errorJSON(res), () => subscription.dispose())
   }

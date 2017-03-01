@@ -10,6 +10,8 @@
 
 const express = require('express')
 const app = express()
+require('./common/middleware')(app)
+require('./common/database')()
 
 const config = require('./common/config.js')
 // Load all configs here
@@ -23,5 +25,3 @@ app.listen(PORT, () => {
   console.log(`listening to port *:${PORT}. press ctrl + c to cancel.`)
 })
 
-// Connect to DB
-// mongoose.connect('mongodb://localhost/rx-residenz')

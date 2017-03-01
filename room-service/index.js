@@ -15,10 +15,10 @@ const Endpoint = require('./endpoint.js')
 const Model = require('./model.js')
 const Service = require('./service.js')
 const Schema = require('./schema.js')
-const Helper = require('./helper/transport.js')
+const Helper = require('../helper/transport.js')
 
 const endpoint = Endpoint({
-  service: Service({ repo: Model }),
+  service: Service({ model: Model }),
   schema: Schema,
   helper: Helper
 })

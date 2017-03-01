@@ -8,8 +8,19 @@
  * Copyright (c) 2017 alextanhongpin. All rights reserved.
 **/
 
-const successJSON = (res) => (data) => res.status(200).json(data)
-const errorJSON = (res) => (err) => res.status(err.code).json(err.error)
+const successJSON = (res) => (data) => {
+  console.log(data)
+  res.status(200).json(data)
+}
 
-const handleValidationError = (res) => (err) => res.status(err.code).json(err.details)
-module.exports = { successJSON, errorJSON, handleValidationError }
+const errorJSON = (res) => (error) => {
+	// Handle schema errors
+  if (error.isJoi) {
+    return res.status(400).json({
+      	errors: error.details
+    })
+  }
+  res.status(error.code || 400).json(error)
+}
+
+module.exports = { successJSON, errorJSON }
