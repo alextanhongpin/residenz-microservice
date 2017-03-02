@@ -11,16 +11,18 @@
 const router = require('express').Router()
 const _ = require('lodash')
 
-const Endpoint = require('./endpoint.js')
-const Model = require('./model.js')
-const Service = require('./service.js')
-const Schema = require('./schema.js')
+const Endpoint = require('../room-service/endpoint.js')
+const Model = require('../room-service/model.js')
+const Service = require('../room-service/service.js')
+const Schema = require('../room-service/schema.js')
 const Helper = require('../helper/transport.js')
+const Serializer = require('../room-service/serializer.js')
 
 const endpoint = Endpoint({
   service: Service({ model: Model }),
   schema: Schema,
-  helper: Helper
+  helper: Helper,
+  serializer: Serializer
 })
 
 const mapping = {

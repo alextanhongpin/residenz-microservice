@@ -9,7 +9,6 @@
 **/
 
 const Joi = require('joi')
-const rx = require('rx')
 
 const page = Joi.number().integer().min(1).default(1, 'The current page')
 const perPage = Joi.number().integer().min(12).max(150).default(15, 'The number of items per page')
@@ -40,20 +39,10 @@ const deleteSchema = Joi.object().keys({
 })
 
 module.exports = {
-  all (data) {
-    return rx.Observable.fromNodeCallback(Joi.validate)(data, allSchema)
-  },
-  one (data) {
-    return rx.Observable.fromNodeCallback(Joi.validate)(data, oneSchema)
-  },
-  create (data) {
-    return rx.Observable.fromNodeCallback(Joi.validate)(data, createSchema)
-  },
-  update (data) {
-    return rx.Observable.fromNodeCallback(Joi.validate)(data, updateSchema)
-  },
-  delete (data) {
-    return rx.Observable.fromNodeCallback(Joi.validate)(data, deleteSchema)
-  }
+  all: (data) => Joi.validate(data, allSchema),
+  one: (data) => Joi.validate(data, oneSchema),
+  create: (data) => Joi.validate(data, createSchema),
+  update: (data) => Joi.validate(data, updateSchema),
+  delete: (data) => Joi.validate(data, deleteSchema)
 }
 

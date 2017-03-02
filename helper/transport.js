@@ -17,7 +17,7 @@ const errorJSON = (res) => (error) => {
 	// Handle schema errors
   if (error.isJoi) {
     return res.status(400).json({
-      	errors: error.details
+      errors: error.details
     })
   }
   res.status(error.code || 400).json(error)
