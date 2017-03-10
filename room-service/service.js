@@ -21,3 +21,36 @@ module.exports = function init ({ model }) {
   Service.Room = () => model
   return Service
 }
+
+
+// Create
+
+// Entity.createPost = function(req, res, next) {
+
+
+//   // console.log('Schema', schema)
+//   const obj = {
+//     user_id: req.user && req.user.id,
+//     title: req.body.title,
+//     cost: req.body.cost,
+//     location: req.body.location,
+//     loc: {
+//       type: 'Point',
+//       coordinates: [req.body.location && req.body.location.longitude, req.body.location && req.body.location.latitude]
+//     },
+//     photos: req.body.photos,
+//     additional_info: req.body.additional_info,
+//     visible: req.body.visible
+//   }
+//   // var valid = ajv.validate(schema, obj)
+//   // console.log(valid, ajv)
+//   return obj;
+// }
+
+// Entity.getPostsNearby = function (req, res) {
+//   return {
+//     distance_in_m: parseInt(req.query.distance_in_m, 10),
+//     lat: parseFloat(req.query.lat, 10),
+//     lon: parseFloat(req.query.lon, 10)
+//   }
+// }
